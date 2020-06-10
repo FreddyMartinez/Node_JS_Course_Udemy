@@ -17,28 +17,35 @@ request(url, { json: true }, (error, response) => {
   }
 });
 
-console.log("probando si es sincrono");
-
 ////////////////////
 
-const city = "Bogota";
 const mapToken =
   "pk.eyJ1IjoiZnJlZGR5bWFydGluZXoiLCJhIjoiY2tiOXE2ODBiMGduYzJ4bzFxeW93d29ucyJ9.4NIVhds4RA0j4eCLpha94Q";
-const geocodeUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${city}.json?access_token=${mapToken}`;
 
-request(geocodeUrl, { json: true }, (err, response) => {
-  if (err) {
-    console.log("Unable to connect to weather service");
-  } else if (response.body.features.lenght == 0) {
-    console.log("Unable to find location");
-  } else {
-    const data = response.body.features;
+const geocode = (address, callback) => {
+  const geocodeUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=${mapToken}`;
 
-    const latitude = data[0].center[1];
-    const longitude = data[0].center[0];
+  request(geocodeUrl, { json: true }, (err, response) => {
+    if (err) {
+      callback("Unable to connect to weather service", undefined);
+    } else if (response.body.features.lenght == 0) {
+      callback("Unable to find location", undefined);
+    } else {
+      const data = response.body.features;
 
-    console.log(`${city} latitude: ${latitude} and longitud: ${longitude}`);
-  }
+      const latitude = data[0].center[1];
+      const longitude = data[0].center[0];
+
+      callback(undefined, {
+        latitude: latitude,
+        longitud: longitude,
+        location: data[0].place_name
+      });
+    }
+  });
+};
+
+geocode("New York", (error, data) => {
+  console.log("Error: ", error);
+  console.log("Data: ", data);
 });
-
-console.log("probando si es sincrono de nuevo");
