@@ -6,3 +6,6 @@
 
 # Section 6: Asynchronous Node.js
 /Weather_App/node_modules
+
+# Section 7: Web Servers
+/web-server/node_modules
