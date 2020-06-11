@@ -1,7 +1,9 @@
 const geocode = require("./util/geocode");
 const forecast = require("./util/weather");
 
-geocode("Medellin", (error, data) => {
+const city = process.argv[2];
+
+geocode(city, (error, data) => {
   if (error) console.log("Error: ", error);
   else {
     console.log(data);
