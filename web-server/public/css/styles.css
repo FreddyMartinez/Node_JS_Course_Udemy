@@ -1,3 +1,24 @@
+body {
+  max-width: 700px;
+  margin: 0 auto;
+  color: #bbb;
+}
+
 h1 {
-  color: darkblue;
+  font-size: 3rem;
+  color: #333;
+}
+
+header {
+  padding: 15px;
+  font-size: 20px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+nav a {
+  text-decoration: none;
 }
