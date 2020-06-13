@@ -1,7 +1,7 @@
 body {
   max-width: 700px;
   margin: 0 auto;
-  color: #bbb;
+  color: #333;
 }
 
 h1 {
@@ -21,4 +21,21 @@ nav {
 
 nav a {
   text-decoration: none;
+}
+
+footer {
+  color: #aaa;
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid #777;
+  background-color: #888;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+input {
+  border: 1px solid #777;
+  padding: 5px;
 }
