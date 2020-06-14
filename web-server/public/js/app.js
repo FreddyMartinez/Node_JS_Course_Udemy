@@ -9,7 +9,7 @@ weatherForm.addEventListener("submit", e => {
   description.textContent = "Searching";
 
   if (city && city != "") {
-    fetch(`http://localhost:3000/weather?city=${city}`).then(resp => {
+    fetch(`/weather?city=${city}`).then(resp => {
       resp.json().then(data => {
         if (data.error) {
           console.log(data.error);
