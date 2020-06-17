@@ -9,3 +9,6 @@
 
 # Section 7: Web Servers
 /web-server/node_modules
+
+# Section 10: Mongo DB and Promises
+/Task-manager/node_modules
