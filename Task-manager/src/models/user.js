@@ -1,14 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 
-const connectionUrl = "mongodb://127.0.0.1:27017";
-const databaseName = "task-manager";
-
-mongoose.connect(connectionUrl + "/" + databaseName, {
-  useNewUrlParser: true,
-  useCreateIndex: true
-});
-
 const User = mongoose.model("User", {
   name: {
     type: String,
@@ -47,18 +39,4 @@ const User = mongoose.model("User", {
   }
 });
 
-const testUser = new User({
-  name: "Andrea",
-  email: "andreamail@gmail.com",
-  password: "Password123",
-  age: 23
-});
-
-testUser
-  .save()
-  .then(res => {
-    console.log(res);
-  })
-  .catch(err => {
-    console.log(err);
-  });
+module.exports = User;
