@@ -75,6 +75,16 @@ userSchema.methods.generateAuthToken = async function() {
   return token;
 };
 
+// Overwriting toJSON method to hide private data
+userSchema.methods.toJSON = function() {
+  const user = this;
+  const userObject = user.toObject();
+
+  delete userObject.password;
+  delete userObject.tokens;
+  return userObject;
+};
+
 // Hash the password before saving
 userSchema.pre("save", async function(next) {
   const user = this;
