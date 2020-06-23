@@ -22,10 +22,37 @@ router.post("/tasks", auth, async (req, res) => {
   }
 });
 
-// Get list of task owned by one user
+/**
+ * Get list of task owned by one user
+ * @filter      completed,
+ * @pagination  limit, skip
+ * @sorting     createdAt
+ */
 router.get("/tasks", auth, async (req, res) => {
+  const match = {};
+  const sort = {};
+
+  if (req.query.completed) {
+    match.completed = req.query.completed;
+  }
+
+  if (req.query.sortBy) {
+    const sortingProp = req.query.sortBy.split(":");
+    sort[sortingProp[0]] = sortingProp[1] === "desc" ? -1 : 1;
+  }
+
   try {
-    await req.user.populate("tasks").execPopulate();
+    await req.user
+      .populate({
+        path: "tasks",
+        match,
+        options: {
+          limit: parseInt(req.query.limit),
+          skip: parseInt(req.query.skip),
+          sort
+        }
+      })
+      .execPopulate();
 
     res.send(req.user.tasks);
   } catch (error) {
