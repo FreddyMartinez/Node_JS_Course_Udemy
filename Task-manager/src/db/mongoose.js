@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
-const connectionUrl = "mongodb://127.0.0.1:27017";
+const connectionUrl = process.env.MONGO_URL;
+
 const databaseName = "task-manager";
 
 mongoose.connect(connectionUrl + "/" + databaseName, {
