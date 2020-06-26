@@ -13,3 +13,4 @@
 # Section 10: Mongo DB and Promises
 /Task-manager/node_modules
 /Task-manager/.env
+/Task-manager/test.env

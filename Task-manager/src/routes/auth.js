@@ -12,7 +12,7 @@ router.post("/users", async (req, res) => {
     await user.save();
     const token = await user.generateAuthToken();
     sendWelcomeEmail(user.email, user.name);
-    res.status(201).send({ newUser: user, token });
+    res.status(201).send({ user, token });
   } catch (error) {
     res.status(500).send(error);
   }
@@ -28,7 +28,7 @@ router.post("/login", async (req, res) => {
 
     res.send({ user, token });
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(400).send(error.message);
   }
 });
 
