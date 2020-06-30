@@ -115,8 +115,6 @@ socket.emit("join", { username, room }, error => {
 });
 
 socket.on("roomData", ({ room, users }) => {
-  console.log(users);
-
   const html = Mustache.render(sidebarTemplate, {
     room,
     users
