@@ -58,7 +58,7 @@ io.on("connection", socket => {
     callback();
   });
 
-  // Someone send ther location
+  // Someone send their location
   socket.on("sendLocation", (location, callback) => {
     const user = getUser(socket.id);
     io.to(user.room).emit(
