@@ -41,26 +41,9 @@ const autoscroll = () => {
   }
 };
 
-socket.on("message", message => {
-  const newMsg = Mustache.render(messageTemplate, {
-    username: message.username,
-    message: message.text,
-    time: moment(message.createdAt).format("h:mm a")
-  });
-  $messages.insertAdjacentHTML("beforeend", newMsg);
-  autoscroll();
-});
-
-socket.on("locationMessage", url => {
-  const location = Mustache.render(locationTemplate, {
-    username: url.username,
-    url: url.text,
-    time: moment(url.createdAt).format("h:mm a")
-  });
-  $messages.insertAdjacentHTML("beforeend", location);
-  autoscroll();
-});
-
+/**
+ * Send messages
+ */
 $messageForm.addEventListener("submit", e => {
   e.preventDefault();
 
@@ -77,6 +60,20 @@ $messageForm.addEventListener("submit", e => {
     }
   });
 });
+
+socket.on("message", message => {
+  const newMsg = Mustache.render(messageTemplate, {
+    username: message.username,
+    message: message.text,
+    time: moment(message.createdAt).format("h:mm a")
+  });
+  $messages.insertAdjacentHTML("beforeend", newMsg);
+  autoscroll();
+});
+
+/**
+ * Send own location
+ */
 
 $locationButton.addEventListener("click", () => {
   if (!navigator.geolocation) {
@@ -100,6 +97,16 @@ $locationButton.addEventListener("click", () => {
   });
 });
 
+socket.on("locationMessage", url => {
+  const location = Mustache.render(locationTemplate, {
+    username: url.username,
+    url: url.text,
+    time: moment(url.createdAt).format("h:mm a")
+  });
+  $messages.insertAdjacentHTML("beforeend", location);
+  autoscroll();
+});
+
 socket.emit("join", { username, room }, error => {
   if (error) {
     alert(error);
@@ -108,6 +115,8 @@ socket.emit("join", { username, room }, error => {
 });
 
 socket.on("roomData", ({ room, users }) => {
+  console.log(users);
+
   const html = Mustache.render(sidebarTemplate, {
     room,
     users
